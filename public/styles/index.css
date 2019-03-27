@@ -1,0 +1,39 @@
+ body, html {
+  height: 100%;
+}
+
+.bg-index {
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ),url(https://images.pexels.com/photos/462024/pexels-photo-462024.jpeg);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-auth {
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ),url(https://images.pexels.com/photos/861313/pexels-photo-861313.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
+}
+
+#mapid{
+  height: 400px;
+  width: 900px;
+}
+
+#mapid-sm {
+  height: 400px;
+  width: 500px;
+}

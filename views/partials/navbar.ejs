@@ -1,4 +1,4 @@
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #de823f;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #005780;">
       <a href="/" class="navbar-brand"><strong>InVacation</strong></a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -9,21 +9,21 @@
         <ul class="nav navbar-nav navbar-right">
         <% if (session.loggedInUser) { %>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/settings"><%= session.loggedInUser.username.toUpperCase() %></a>
+            <a class="nav-link text-light" href="/user/settings"><%= session.loggedInUser.username.toUpperCase() %></a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" data-toggle="modal" data-target="#topupModal"><i class="fas fa-wallet"></i> IDR <%= foundUser.balance %> </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/logout">Logout</a>
+            <a class="nav-link text-light" href="/user/logout">Logout</a>
           </li>
         <% }
         else { %>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/register">Register</a>
+            <a class="nav-link text-light" href="/user/register">Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="/login">Login</a>
+            <a class="nav-link text-light" href="/user/login">Login</a>
           </li>
         <% } %>
         </ul>
@@ -34,12 +34,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="topupModalLabel">Topup balance</h5>
+            <h5 class="modal-title text-light" id="topupModalLabel">Topup balance</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="/topup" method="POST">
+          <form action="/user/topup" method="POST">
             <div class="modal-body">
               <input class="form-control" type="number" name="balance">
             </div>
