@@ -5,27 +5,54 @@
     <title><%= title %></title>
   </head>
   <body class="bg-index">
+    
     <% include ../../partials/navbar %>
-    <div class="container text-light" style="margin-top:1rem">
+    <div class="container text-light" style="margin-top:4rem">
       <div class="text-center">
-        <h1><%= foundDestination.name %></h1>
-        <p><%= foundDestination.description %></p>
+        <h1 class="font-weight-bold"><%= foundDestination.name %></h1>
+        <p class="font-italic"><%= foundDestination.description %></p>
       </div>
-      <div class="row">
+      <div class="row" style="margin-top: 2.5rem;">
         <div class="col">
-          <div id="mapid-sm">
-          </div>
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-interval="3000">
+                      <img src="<%= foundDestination.Pictures[0].url %>" class="d-block w-100" alt="..." style="width:auto; max-height:300px !important;">
+                  </div>
+                  <div class="carousel-item" data-interval="3000">
+                    <img src="<%= foundDestination.Pictures[1].url %>" class="d-block w-100" alt="..." style="width:auto; max-height:300px !important;">
+                  </div>
+                  <div class="carousel-item" data-interval="3000">
+                    <img src="<%= foundDestination.Pictures[2].url %>" class="d-block w-100" alt="..." style="width:auto; max-height:300px !important;">
+                  </div>
+                </div>
+              </div>
         </div>
         <div class="col">
-          <%= getCompleteDate(foundDestination.date) %> <br>
-          Price: IDR <%= foundDestination.price %>
-          <form action="/destinations/<%= foundDestination.id %>/book" method="POST">
-            <button>Book now</button>
-          </form>
+          <div class="row">
+            <div id="mapid-sm" style="height: 10rem;">
+            </div>
+          </div>
+          <div class="row" style="margin-top: 1.25rem; margin-left: 0.5rem;">
+            <div class="col">
+            <h5 class="font-weight-bold">Travel Date</h5>
+            <p class="text-monospace"> <%= getCompleteDate(foundDestination.date) %>
+            </p>
+            <h5 class="font-weight-bold">Price</h5>
+            <p class="text-monospace">IDR <%= foundDestination.price %> </p> 
+          </div>
+            <div class="col" style="margin-top: 5rem">
+              <form action="/destinations/<%= foundDestination.id %>/book" method="POST">
+                <button type="button" class="btn btn-info text-monospace"">Book Now</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
+    <div class="container" style="margin-top: 2.5rem;">
+    </div>
 
     <script>
       let getDestination = '<%- foundDestinationStringify %>';
@@ -40,5 +67,6 @@
           accessToken: 'pk.eyJ1Ijoidnlvbml6ciIsImEiOiJjanRwbTlhczkwNjVoM3lvM2Y3cDRwMWtxIn0.Hdtt_1JugiGBsGDbx7nOLA'
       }).addTo(mymap);
     </script>
+    <%- include('../../partials/bootstrap-scripts') %>
   </body>
 </html>
