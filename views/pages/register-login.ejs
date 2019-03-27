@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+    <div class="container-fluid col-centered" style="max-width:30rem">
+      <h1 class="text-center"><%= header %></h1>
+      <% if (err) { %>
+        <div class="alert alert-danger text-center" role="alert">
+          <%= err %>
+        </div>
+      <% } %>
+      <div>
+        <% if (registerOrLogin === "register") { %>
+          <form action="/register" method="POST">
+        <% }
+        else { %>
+          <form action="/login" method="POST">
+        <% } %>
+        <% if (registerOrLogin === "register") { %>
+          <div class="form-group">
+            <label>First name:</label>
+            <input type="text" class="form-control" name="firstName">
+          </div>
+          <div class="form-group">
+            <label>Last name:</label>
+            <input type="text" class="form-control" name="lastName">
+          </div>
+          <div class="form-group">
+            <label>E-mail:</label>
+            <input type="text" class="form-control" name="email">
+          </div>
+        <% } %>
+          <div class="form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" name="username">
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" name="password">
+          </div>
+          <% if (registerOrLogin === "register") { %>
+            <button type="submit" class="btn btn-primary">Register</button>
+          <% }
+          else { %>
+            <button type="submit" class="btn btn-primary">Login</button>
+          <% } %>
+        </form>
+      </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

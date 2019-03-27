@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+    <% if (session.loggedInUser) { %>
+      <h2><%= session.loggedInUser.name %></h2>
+      <h5>Your booked destinations:</h5>
+    <% }
+    else { %>
+      <h1>InVacation</h1>
+      <h3>Your vacation, simplified</h3>
+    <% } %>
+    <% include ../partials/bootstrap-scripts %>
+  </body>
+</html>
