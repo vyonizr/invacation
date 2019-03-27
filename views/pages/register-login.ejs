@@ -4,10 +4,13 @@
     <% include ../partials/head %>
     <title><%= title %></title>
   </head>
-  <body>
+  <body class="bg-auth text-light">
     <% include ../partials/navbar %>
     <div class="container-fluid col-centered" style="max-width:30rem">
       <h1 class="text-center"><%= header %></h1>
+      <% if(registerOrLogin === "register") { %>
+        <p class="text-center">Already a member? <a href="/user/login">Login</a></p>
+      <% } %>
       <% if (err) { %>
         <div class="alert alert-danger text-center" role="alert">
           <%= err %>
@@ -15,10 +18,10 @@
       <% } %>
       <div>
         <% if (registerOrLogin === "register") { %>
-          <form action="/register" method="POST">
+          <form action="/user/register" method="POST">
         <% }
         else { %>
-          <form action="/login" method="POST">
+          <form action="/user/login" method="POST">
         <% } %>
         <% if (registerOrLogin === "register") { %>
           <div class="form-group">
@@ -46,7 +49,15 @@
             <button type="submit" class="btn btn-primary">Register</button>
           <% }
           else { %>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="col">
+                  <p>Not a member? <a href="/register">Register</a></p>
+                </div>
+              </div>
           <% } %>
         </form>
       </div>

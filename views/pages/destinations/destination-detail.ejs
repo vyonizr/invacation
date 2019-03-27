@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../partials/head-leaflet %>
+    <title><%= title %></title>
+  </head>
+  <body class="bg-index">
+    <% include ../../partials/navbar %>
+    <div class="container text-light" style="margin-top:1rem">
+      <div class="text-center">
+        <h1><%= foundDestination.name %></h1>
+        <p><%= foundDestination.description %></p>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div id="mapid-sm">
+          </div>
+        </div>
+        <div class="col">
+          <%= getCompleteDate(foundDestination.date) %> <br>
+          Price: IDR <%= foundDestination.price %>
+          <form action="/destinations/<%= foundDestination.id %>/book" method="POST">
+            <button>Book now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+      let getDestination = '<%- foundDestinationStringify %>';
+      getDestination = JSON.parse(getDestination)
+      let mymap = L.map('mapid-sm').setView([getDestination.lat,getDestination.long], 11)
+      marker = L.marker([getDestination.lat, getDestination.long]).addTo(mymap).bindPopup(getDestination.name).openPopup()
+
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox.streets',
+          accessToken: 'pk.eyJ1Ijoidnlvbml6ciIsImEiOiJjanRwbTlhczkwNjVoM3lvM2Y3cDRwMWtxIn0.Hdtt_1JugiGBsGDbx7nOLA'
+      }).addTo(mymap);
+    </script>
+  </body>
+</html>
