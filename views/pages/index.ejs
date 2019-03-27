@@ -5,15 +5,39 @@
     <title><%= title %></title>
   </head>
   <body class="bg-index">
-    <div class="text-light">
-      <% include ../partials/navbar %>
+    <% include ../partials/navbar %>
+    <div class="container">
       <% if (session.loggedInUser) { %>
-        <h2><%= session.loggedInUser.name %></h2>
-        <h5>Your booked destinations:</h5>
+        <h2 class="text-light"><%= session.loggedInUser.name %></h2>
+        <h5 class="text-light">Your booked destinations:</h5>
+        <table class="table table-striped table-light">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Option</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% foundUser.Destinations.forEach((destination, i) => { %>
+              <tr>
+                <th scope="row"><%= i + 1 %></td>
+                <td><a href="/destinations/<%= destination.id %>"><%= destination.name %></a></td>
+                <td><%= getCompleteDate(destination.date) %></td>
+                <td>
+                  <form action="/cancel/<%= destination.id %>" method="POST">
+                    <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
       <% }
       else { %>
-        <h1>InVacation</h1>
-        <h3>Your vacation, simplified</h3>
+        <h1 class="text-light">InVacation</h1>
+        <h3 class="text-light">Your vacation, simplified</h3>
       <% } %>
       <% include ../partials/bootstrap-scripts %>
     </div>
