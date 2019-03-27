@@ -1,0 +1,53 @@
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #de823f;">
+      <a href="/" class="navbar-brand"><strong>InVacation</strong></a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/destinations"><i class="fas fa-map-signs"></i>   Destinations</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <% if (session.loggedInUser) { %>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/settings"><%= session.loggedInUser.username.toUpperCase() %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" data-toggle="modal" data-target="#topupModal"><i class="fas fa-wallet"></i> IDR <%= foundUser.balance %> </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/logout">Logout</a>
+          </li>
+        <% }
+        else { %>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/login">Login</a>
+          </li>
+        <% } %>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="modal fade" id="topupModal" tabindex="-1" role="dialog" aria-labelledby="topupModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="topupModalLabel">Topup balance</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="/topup" method="POST">
+            <div class="modal-body">
+              <input class="form-control" type="number" name="balance">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Topup</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
