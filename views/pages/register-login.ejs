@@ -9,7 +9,7 @@
     <div class="container-fluid col-centered" style="max-width:30rem">
       <h1 class="text-center"><%= header %></h1>
       <% if(registerOrLogin === "register") { %>
-        <p class="text-center">Already a member? <a href="/user/login">Login</a></p>
+        <p class="text-center">Already a member? <a href="/user/login" id="dark-bg">Login</a></p>
       <% } %>
       <% if (err) { %>
         <div class="alert alert-danger text-center" role="alert">
@@ -55,7 +55,7 @@
                   <button type="submit" class="btn btn-primary">Login</button>
                 </div>
                 <div class="col">
-                  <p>Not a member? <a href="/register">Register</a></p>
+                  <p>Not a member? <a href="/user/register" id="dark-bg">Register</a></p>
                 </div>
               </div>
           <% } %>
