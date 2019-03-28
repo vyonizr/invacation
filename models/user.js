@@ -3,8 +3,28 @@ const bcrypt = require("bcryptjs")
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "First name must not be empty"
+        },
+        isAlpha: {
+          args: true,
+          msg: "First name: only letters allowed"
+        }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      validate: {
+        isAlpha: {
+          args: true,
+          msg: "Last name: only letters allowed"
+        }
+      }
+    },
     username: {
       type: DataTypes.STRING,
       validate: {

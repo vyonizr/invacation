@@ -8,8 +8,8 @@
     <% include ../partials/navbar %>
     <div class="container">
       <% if (session.loggedInUser) { %>
-        <h2 class="text-light"><%= session.loggedInUser.name %></h2>
-        <h5 class="text-light">Your booked destinations:</h5>
+        <h2 class="text-light text-center"><%= session.loggedInUser.name %></h2>
+        <h5 class="text-light text-center">Your booked destinations:</h5>
         <table class="table table-striped table-light">
           <thead class="thead-dark">
             <tr>
@@ -29,7 +29,7 @@
                 <td><%= getCompleteDate(destination.date) %></td>
                 <td>
                   <form action="/cancel/<%= destination.id %>" method="POST">
-                    <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure? You will get 50% refund from your cancellation')">Cancel</button>
                   </form>
                 </td>
               </tr>
@@ -38,10 +38,13 @@
         </table>
       <% }
       else { %>
-        <h1 class="text-light">InVacation</h1>
-        <h3 class="text-light">Your vacation, simplified</h3>
+      <div class="container">
+        <h1 class="text-light text-center">InVacation</h1>
+        <h3 class="text-light text-center">Liburan tanpa batas</h3>
+      </div>
       <% } %>
       <% include ../partials/bootstrap-scripts %>
     </div>
+    <% include ../partials/topup-modal %>
   </body>
 </html>
