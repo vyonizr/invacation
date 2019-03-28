@@ -34,6 +34,9 @@ router.get("/register", (req, res) => {
 
 router.get("/settings", isLoggedIn, (req, res) => {
   let err = null
+  if (req.query.err) {
+    err = req.query.err
+  }
   User.findByPk(req.session.loggedInUser.id)
   .then(foundUser => {
     res.render("pages/user-settings", {
@@ -55,7 +58,6 @@ router.get("/logout", (req, res) => {
 })
 
 router.post("/login", (req, res) => {
-  console.log(req.body);
   User.findOne({
     where: {
       username: req.body.username
@@ -94,7 +96,7 @@ router.post("/register", (req, res) => {
     res.redirect("/")
   })
   .catch(err => {
-    res.redirect("/user/register?err=" + err.errors[0].message)
+    res.redirect("/user/register?err=" + err.message)
   })
 })
 
@@ -111,14 +113,14 @@ router.post("/settings", (req, res) => {
     if (req.body.password !== "") {
       foundUser.password = req.body.password
     }
-    req.session.loggedInUser.name = foundUser.getFullName()
     return foundUser.save()
   })
-  .then(() => {
+  .then((updatedUser) => {
+    req.session.loggedInUser.name = updatedUser.getFullName()
     res.redirect("/")
   })
   .catch(err => {
-    res.send(err)
+    res.redirect("/user/settings?err=" + err.message)    
   })
 })
 
