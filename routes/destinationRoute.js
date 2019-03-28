@@ -44,53 +44,107 @@ router.get("/", (req, res) => {
 
 
 router.get('/search', (req, res) => {
+  let foundUser = null
   const priceRange = [[0, 500000], [500000, 1500000], [1500000, 10000000]]
   let keyword = ''
-  let price = priceRange[2];
+  let price = [0, 10000000];
   if (req.query.keyword) {
       keyword = req.query.keyword
   } if (req.query.price) {
+    console.log(price)
     price = priceRange[Number(req.query.price)]
   }
-  Destination
-    .findAll(
-      {
-        where: {
-          price,
-          [Op.or]: [
-              {
-                  name: {
-                  [Op.iLike]: '%' + keyword + '%'
-                  }
+
+  if (req.session.loggedInUser) {
+    User
+      .findByPk(req.session.loggedInUser.id)
+      .then(user => {
+        foundUser = user
+        return Destination
+          .findAll(
+          {
+            where: {
+              price: {
+                [Op.between]: price
               },
-              {
-                  description: {
-                  [Op.iLike]: '%' + keyword + '%'
+              [Op.or]: [
+                  {
+                      name: {
+                      [Op.iLike]: '%' + keyword + '%'
+                      }
+                  },
+                  {
+                      description: {
+                      [Op.iLike]: '%' + keyword + '%'
+                      }
+                  },
+                  {
+                      location: {
+                      [Op.iLike]: '%' + keyword + '%'
+                      }
                   }
-              },
-              {
-                  location: {
-                  [Op.iLike]: '%' + keyword + '%'
-                  }
+                ]
               }
-            ]
+          })
+      })
+      .then(destinations => {
+        // res.send(destinations)
+        res.render('pages/search',
+          {
+            title: 'InVacation | Search Destination',
+            destinations,
+            session: req.session,
+            getCompleteDate,
+            foundUser
           }
-      }
-    )
-    .then(destinations => {
-      // res.send(destinations)
-      res.render('pages/search',
-        {
-          title: 'InVacation | Search Destination',
-          destinations,
-          session: req.session,
-          getCompleteDate
-        }
-      )
-    })
-    .catch(err => {
-      res.send(err.message)
-    })
+        )
+      })
+      .catch(err => {
+        res.send(err.message)
+      })
+    } else {
+      Destination
+          .findAll(
+          {
+            where: {
+              price: {
+                [Op.between]: price
+              },
+              [Op.or]: [
+                  {
+                      name: {
+                      [Op.iLike]: '%' + keyword + '%'
+                      }
+                  },
+                  {
+                      description: {
+                      [Op.iLike]: '%' + keyword + '%'
+                      }
+                  },
+                  {
+                      location: {
+                      [Op.iLike]: '%' + keyword + '%'
+                      }
+                  }
+                ]
+              }
+          })
+      .then(destinations => {
+        // res.send(destinations)
+        res.render('pages/search',
+          {
+            title: 'InVacation | Search Destination',
+            destinations,
+            session: req.session,
+            getCompleteDate,
+            foundUser
+          }
+        )
+      })
+      .catch(err => {
+        res.send(err.message)
+      })
+    }
 })
 
 router.get("/:destinationId", (req, res) => {

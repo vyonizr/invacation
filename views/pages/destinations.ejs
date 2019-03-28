@@ -7,14 +7,14 @@
   <body class="bg-index">
     
     <% include ../partials/navbar %>
-    <div class="container">
+    <div class="container" style="margin: 4rem auto;">
       <h1 class="text-light text-center">Browse Destinations</h1>
-      <div id="mapid"></div>
+      <div id="mapid" style="margin: 3rem auto;"></div>
     </div>
 
     <% include ../partials/topup-modal %>
     <script>
-      let mymap = L.map('mapid').setView([-5.5617312,115.0894244,6.5], 4)
+      let mymap = L.map('mapid').setView([-2.016936,122.4155453], 4)
       let getDestinations = '<%- destinations %>';
       JSON.parse(getDestinations).forEach(destination => {
         marker = L.marker([destination.lat, destination.long]).addTo(mymap).bindPopup(`<a href='destinations/${destination.id}'>` + destination.name + '</a>').openPopup()

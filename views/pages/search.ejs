@@ -7,43 +7,43 @@
   <body class="bg-index">
     <% include ../partials/navbar %>
 
+    <div class="container" style="margin-top: 4rem;">
+        <h1 class="text-light text-center">Search Destinations</h1>
+      </div>
+  
 
-    <div class="container" style="margin: 2rem auto; max-width: 70rem">
+    <div class="container" style="margin: 3rem auto; max-width: 70rem">
         <form method="GET" action="/destinations/search">
-          <div class="form-group">
+          <div class="form-group text-light">
             <label>Search By Keyword</label>
             <input type="text" class="form-control" placeholder="Keyword Input" name="keyword">
           </div>
-          <div class="form-group">
-            <label>tes</label>
-            <input type="text" class="form-control" placeholder="Keyword Input" name="tes">
-          </div>
-          <fieldset class="form-group">
+          <fieldset class="form-group text-light">
             <div class="row">
-              <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+              <legend class="col-form-label col-sm-2 pt-0">Price Range</legend>
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="price" value="0" checked>
+                  <input class="form-check-input" type="radio" name="price" value="0">
                   <label class="form-check-label">
-                    First radio
+                    IDR 0 - IDR 500.000
                   </label>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="price" value="1">
                   <label class="form-check-label">
-                    Second radio
+                    IDR 500.000 - IDR 1.500.000
                   </label>
                 </div>
                 <div class="form-check disabled">
-                  <input class="form-check-input" type="radio" name="price" value="2" disabled>
+                  <input class="form-check-input" type="radio" name="price" value="2">
                   <label class="form-check-label">
-                    Third disabled radio
+                    IDR 1.500.000 - IDR 10.000.000                    
                   </label>
                 </div>
               </div>
             </div>
           </fieldset>
-          <button type="submit">Search</button>
+          <button type="submit" class="btn btn-light" >Search</button>
         </form>
       </div>
 
@@ -55,6 +55,7 @@
               <th scope="col">Name</th>
               <th scope="col">Location</th>
               <th scope="col">Date</th>
+              <th scope="col">Price</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +65,7 @@
                 <td><a href="/destinations/<%= destination.id %>"><%= destination.name %></a></td>
                 <td><%= destination.location %></td>
                 <td><%= getCompleteDate(destination.date) %></td>
+                <td>IDR <%= destination.price %></td>
               </tr>
             <% }) %>
           </tbody>
