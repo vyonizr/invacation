@@ -5,13 +5,22 @@
     <title><%= title %></title>
   </head>
   <body class="bg-index">
-    
     <% include ../../partials/navbar %>
     <div class="container text-light" style="margin-top:4rem">
       <div class="text-center">
         <h1 class="font-weight-bold"><%= foundDestination.name %></h1>
         <p class="font-italic"><%= foundDestination.description %></p>
       </div>
+      <% if (err) { %>
+        <div class="alert alert-danger text-center" role="alert">
+          <%= err %>
+        </div>
+      <% }
+      else if (success) { %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
+        </div>
+      <% } %>
       <div class="row" style="margin-top: 2.5rem;">
         <div class="col">
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -41,11 +50,16 @@
             <h5 class="font-weight-bold">Price</h5>
             <p class="text-monospace">IDR <%= foundDestination.price %> </p> 
           </div>
+          <% if (booked) { %>
             <div class="col" style="margin-top: 5rem">
-              <form action="/destinations/<%= foundDestination.id %>/book" method="POST">
-                <button type="button" class="btn btn-info text-monospace"">Book Now</button>
-              </form>
+              <button type="submit" class="btn btn-secondary text-monospace" disabled>Booked</button>
             </div>
+          <% }
+          else { %>
+            <div class="col" style="margin-top: 5rem">
+              <a href="/destinations/<%= foundDestination.id %>/book"><button type="submit" class="btn btn-info text-monospace">Book Now</button></a>
+            </div>
+          <% } %>
           </div>
         </div>
       </div>
