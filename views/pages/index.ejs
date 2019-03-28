@@ -15,6 +15,7 @@
             <tr>
               <th scope="col">No.</th>
               <th scope="col">Name</th>
+              <th scope="col">Location</th>
               <th scope="col">Date</th>
               <th scope="col">Option</th>
             </tr>
@@ -22,8 +23,9 @@
           <tbody>
             <% foundUser.Destinations.forEach((destination, i) => { %>
               <tr>
-                <th scope="row"><%= i + 1 %></td>
+                <th scope="row"><%= i + 1 %></th>
                 <td><a href="/destinations/<%= destination.id %>"><%= destination.name %></a></td>
+                <td><%= destination.location %></td>
                 <td><%= getCompleteDate(destination.date) %></td>
                 <td>
                   <form action="/cancel/<%= destination.id %>" method="POST">

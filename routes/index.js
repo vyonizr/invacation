@@ -16,6 +16,7 @@ router.get("/", (req, res) => {
       ]
     })
     .then(foundUser => {
+      // res.send(foundUser)
       res.render("pages", {
         title: "InVacation",
         foundUser,

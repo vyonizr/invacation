@@ -75,7 +75,7 @@ router.post("/login", (req, res) => {
     }
   })
   .catch(err => {
-    res.redirect("/login?err=" + err)
+    res.redirect("/user/login?err=" + err)
   })
 })
 
