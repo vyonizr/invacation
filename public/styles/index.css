@@ -3,7 +3,7 @@
 }
 
 .bg-index {
-  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ),url(https://images.pexels.com/photos/462024/pexels-photo-462024.jpeg);
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ) no-repeat center center fixed,url(https://images.pexels.com/photos/462024/pexels-photo-462024.jpeg) no-repeat center center fixed;
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -11,7 +11,7 @@
 }
 
 .bg-auth {
-  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ),url(https://images.pexels.com/photos/861313/pexels-photo-861313.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ) no-repeat center center fixed,url(https://images.pexels.com/photos/861313/pexels-photo-861313.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260) no-repeat center center fixed;
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;

@@ -19,9 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
       validate: {
-        isAlpha: {
-          args: true,
-          msg: "Last name: only letters allowed"
+        isEmpty(lastName) {
+          if (lastName.length !== 0 && RegExp(' ').test(lastName)) {
+            throw new Error('Last name: only letters allowed')
+          }
         }
       }
     },
@@ -69,12 +70,31 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate(user, options) {
+        let temp = user.firstName;
+        temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
+        user.firstName = temp;
+        
+        temp = user.lastName;
+        temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
+        user.lastName = temp;
+
         if (user.password !== "") {
           let salt = bcrypt.genSaltSync(10);
           let hash = bcrypt.hashSync(user.password, salt);
           user.password = hash
           user.salt = salt
           user.balance = 0
+        }
+      },
+      beforeUpdate(user, options) {
+        let temp = user.firstName;
+        temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
+        user.firstName = temp;
+        
+        if (user.lastName !== '') {
+          temp = user.lastName;
+          temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
+          user.lastName = temp;
         }
       }
     }
