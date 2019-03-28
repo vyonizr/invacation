@@ -8,10 +8,11 @@
     
     <% include ../partials/navbar %>
     <div class="container">
-      <h1 class="text-center">Browse Destinations</h1>
+      <h1 class="text-light text-center">Browse Destinations</h1>
       <div id="mapid"></div>
     </div>
 
+    <% include ../partials/topup-modal %>
     <script>
       let mymap = L.map('mapid').setView([-5.5617312,115.0894244,6.5], 4)
       let getDestinations = '<%- destinations %>';

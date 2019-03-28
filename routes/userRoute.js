@@ -20,6 +20,9 @@ router.get("/login", (req, res) => {
 
 router.get("/register", (req, res) => {
   let err = null
+  if (req.query.err) {
+    err = req.query.err
+  }
   res.render("pages/register-login", {
     title: "VacationPal | Register",
     header: "Register",
@@ -91,7 +94,7 @@ router.post("/register", (req, res) => {
     res.redirect("/")
   })
   .catch(err => {
-    res.send(err)
+    res.redirect("/user/register?err=" + err.errors[0].message)
   })
 })
 

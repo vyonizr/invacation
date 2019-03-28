@@ -6,7 +6,7 @@
   </head>
   <body class="bg-index">
     <% include ../../partials/navbar %>
-    <div class="container text-light" style="margin-top:4rem">
+    <div class="container text-light" style="margin-top:2rem">
       <div class="text-center">
         <h1 class="font-weight-bold"><%= foundDestination.name %></h1>
         <p class="font-italic"><%= foundDestination.description %></p>
@@ -68,10 +68,11 @@
     <div class="container" style="margin-top: 2.5rem;">
     </div>
 
+    <% include ../../partials/topup-modal %>
     <script>
       let getDestination = '<%- foundDestinationStringify %>';
       getDestination = JSON.parse(getDestination)
-      let mymap = L.map('mapid-sm').setView([getDestination.lat,getDestination.long], 11)
+      let mymap = L.map('mapid-sm').setView([getDestination.lat,getDestination.long], 9)
       marker = L.marker([getDestination.lat, getDestination.long]).addTo(mymap).bindPopup(getDestination.name).openPopup()
 
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

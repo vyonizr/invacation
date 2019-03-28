@@ -124,7 +124,7 @@ router.get("/:destinationId/book", isLoggedIn, (req, res) => {
   })
   .then(foundUser => {
     if (foundUser.balance < destination.price) {
-      res.redirect(`/destinations/${destination.id}?err=` + "You have insufficient funds")
+      throw new Error("You have insufficient funds")
     }
     else {
       return UserDestination.create({
@@ -137,7 +137,7 @@ router.get("/:destinationId/book", isLoggedIn, (req, res) => {
     res.redirect(`/destinations/${req.params.destinationId}?success=` + "Book success!")
   })
   .catch(err => {
-    res.send(err)
+    res.redirect(`/destinations/${destination.id}?err=` + err)
   })
 })
 
