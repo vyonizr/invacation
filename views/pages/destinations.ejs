@@ -14,7 +14,7 @@
 
     <% include ../partials/topup-modal %>
     <script>
-      let mymap = L.map('mapid').setView([-2.016936,122.4155453], 4)
+      let mymap = L.map('mapid').setView([-2.016936,122.4155453], 3)
       let getDestinations = '<%- destinations %>';
       JSON.parse(getDestinations).forEach(destination => {
         marker = L.marker([destination.lat, destination.long]).addTo(mymap).bindPopup(`<a href='destinations/${destination.id}'>` + destination.name + '</a>').openPopup()

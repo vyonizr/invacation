@@ -1,4 +1,5 @@
 module.exports = function thousandSeparator(num) {
+  num = String(num)
   return (
     num
       .replace('.', ',')

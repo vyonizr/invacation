@@ -145,6 +145,9 @@ router.get('/search', (req, res) => {
 })
 
 router.get("/:destinationId", (req, res) => {
+  if (isNaN(req.params.destinationId)) {
+    res.redirect("/404")
+  }
   let foundUser = null
   let err = null
   let booked = false
@@ -167,7 +170,6 @@ router.get("/:destinationId", (req, res) => {
       }
     })
     .then(foundUserDestination => {
-      // res.send(foundUserDestination)
       if(foundUserDestination) {
         booked = true
       }
@@ -178,17 +180,21 @@ router.get("/:destinationId", (req, res) => {
       })
     })
     .then(foundDestination => {
-      // res.send(foundDestination)
-      res.render("pages/destinations/destination-detail", {
-        title: `Invacation | ${foundDestination.name}`,
-        foundDestinationStringify: JSON.stringify(foundDestination),
-        foundUser,
-        foundDestination,
-        booked,
-        success,
-        err,
-        session: req.session
-      })
+      if (foundDestination === null) {
+        res.redirect("/404")
+      }
+      else {
+        res.render("pages/destinations/destination-detail", {
+          title: `Invacation | ${foundDestination.name}`,
+          foundDestinationStringify: JSON.stringify(foundDestination),
+          foundUser,
+          foundDestination,
+          booked,
+          success,
+          err,
+          session: req.session
+        })
+      }
     })
   }
   else {
@@ -198,30 +204,43 @@ router.get("/:destinationId", (req, res) => {
       ]
     })
     .then(foundDestination => {
-      // res.send(foundDestination)
-      res.render("pages/destinations/destination-detail", {
-        title: `Invacation | ${foundDestination.name}`,
-        foundDestinationStringify: JSON.stringify(foundDestination),
-        foundUser,
-        foundDestination,
-        booked,
-        success,
-        err,
-        session: req.session
-      })
+      if (foundDestination === null) {
+        res.redirect("/404")
+      }
+      else {
+        res.render("pages/destinations/destination-detail", {
+          title: `Invacation | ${foundDestination.name}`,
+          foundDestinationStringify: JSON.stringify(foundDestination),
+          foundUser,
+          foundDestination,
+          booked,
+          success,
+          err,
+          session: req.session
+        })
+      }
     })
     .catch(err => {
+      console.log(err);
       res.send(err)
     })
   }
 })
 
 router.get("/:destinationId/book", isLoggedIn, (req, res) => {
+  if (isNaN(req.params.destinationId)) {
+    res.redirect("/404")
+  }
   let destination = {}
   Destination.findByPk(req.params.destinationId)
   .then(foundDestination => {
-    destination = foundDestination
-    return User.findByPk(req.session.loggedInUser.id)
+    if(!foundDestination) {
+      res.redirect("/404")
+    }
+    else {
+      destination = foundDestination
+      return User.findByPk(req.session.loggedInUser.id)
+    }
   })
   .then(foundUser => {
     if (foundUser.balance < destination.price) {

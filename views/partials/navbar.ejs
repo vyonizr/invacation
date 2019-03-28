@@ -15,7 +15,7 @@
             <a class="nav-link text-light" href="/user/settings"><%= session.loggedInUser.username.toUpperCase() %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" data-toggle="modal" data-target="#topupModal"><i class="fas fa-wallet"></i> IDR <%= thousandSeparator(`${foundUser.balance}`)%> </a>
+            <a class="nav-link text-light" data-toggle="modal" data-target="#topupModal"><i class="fas fa-wallet"></i> IDR <%= thousandSeparator(foundUser.balance)%> </a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="/user/logout">Logout</a>
