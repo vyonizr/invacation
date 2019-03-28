@@ -1,1 +1,2 @@
-# vacationpal
+# InVacation
+Wisata tanpa batas
