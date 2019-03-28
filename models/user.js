@@ -73,10 +73,12 @@ module.exports = (sequelize, DataTypes) => {
         let temp = user.firstName;
         temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
         user.firstName = temp;
-        
-        temp = user.lastName;
-        temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
-        user.lastName = temp;
+
+        if (user.lastName !== '') {
+          temp = user.lastName;
+          temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
+          user.lastName = temp;
+        }
 
         if (user.password !== "") {
           let salt = bcrypt.genSaltSync(10);
@@ -90,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
         let temp = user.firstName;
         temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()
         user.firstName = temp;
-        
+
         if (user.lastName !== '') {
           temp = user.lastName;
           temp = temp[0].toUpperCase() + temp.slice(1).toLowerCase()

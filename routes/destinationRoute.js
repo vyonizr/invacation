@@ -2,7 +2,6 @@ const express = require("express")
 const router = express.Router()
 const { Destination, User, Picture, UserDestination } = require("../models")
 const isLoggedIn = require("../middlewares/isLoggedIn")
-const getCompleteDate = require("../helpers/getCompleteDate")
 const { Op } = require('sequelize')
 
 router.get("/", (req, res) => {
@@ -94,7 +93,6 @@ router.get('/search', (req, res) => {
             title: 'InVacation | Search Destination',
             destinations,
             session: req.session,
-            getCompleteDate,
             foundUser
           }
         )
@@ -136,7 +134,6 @@ router.get('/search', (req, res) => {
             title: 'InVacation | Search Destination',
             destinations,
             session: req.session,
-            getCompleteDate,
             foundUser
           }
         )
@@ -187,7 +184,6 @@ router.get("/:destinationId", (req, res) => {
         foundDestinationStringify: JSON.stringify(foundDestination),
         foundUser,
         foundDestination,
-        getCompleteDate,
         booked,
         success,
         err,
@@ -208,7 +204,6 @@ router.get("/:destinationId", (req, res) => {
         foundDestinationStringify: JSON.stringify(foundDestination),
         foundUser,
         foundDestination,
-        getCompleteDate,
         booked,
         success,
         err,
