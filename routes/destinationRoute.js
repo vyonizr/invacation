@@ -3,6 +3,7 @@ const router = express.Router()
 const { Destination, User, Picture, UserDestination } = require("../models")
 const isLoggedIn = require("../middlewares/isLoggedIn")
 const getCompleteDate = require("../helpers/getCompleteDate")
+const { Op } = require('sequelize')
 
 router.get("/", (req, res) => {
   let foundUser = null
@@ -39,6 +40,57 @@ router.get("/", (req, res) => {
       res.send(err)
     })
   }
+})
+
+
+router.get('/search', (req, res) => {
+  const priceRange = [[0, 500000], [500000, 1500000], [1500000, 10000000]]
+  let keyword = ''
+  let price = priceRange[2];
+  if (req.query.keyword) {
+      keyword = req.query.keyword
+  } if (req.query.price) {
+    price = priceRange[Number(req.query.price)]
+  }
+  Destination
+    .findAll(
+      {
+        where: {
+          price,
+          [Op.or]: [
+              {
+                  name: {
+                  [Op.iLike]: '%' + keyword + '%'
+                  }
+              },
+              {
+                  description: {
+                  [Op.iLike]: '%' + keyword + '%'
+                  }
+              },
+              {
+                  location: {
+                  [Op.iLike]: '%' + keyword + '%'
+                  }
+              }
+            ]
+          }
+      }
+    )
+    .then(destinations => {
+      // res.send(destinations)
+      res.render('pages/search',
+        {
+          title: 'InVacation | Search Destination',
+          destinations,
+          session: req.session,
+          getCompleteDate
+        }
+      )
+    })
+    .catch(err => {
+      res.send(err.message)
+    })
 })
 
 router.get("/:destinationId", (req, res) => {
