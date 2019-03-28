@@ -48,7 +48,12 @@
             <p class="text-monospace"> <%= getCompleteDate(foundDestination.date) %>
             </p>
             <h5 class="font-weight-bold">Price</h5>
-            <p class="text-monospace">IDR <%= foundDestination.price %> </p> 
+            <% if (foundDestination.price === 0) { %>
+              <p class="text-monospace">FREE!</p> 
+            <% }
+            else { %>
+              <p class="text-monospace">IDR <%= thousandSeparator(foundDestination.price) %> </p> 
+            <% } %>
           </div>
           <% if (booked) { %>
             <div class="col" style="margin-top: 5rem">
