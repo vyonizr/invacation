@@ -64,5 +64,33 @@ router.post("/cancel/:destinationId", (req, res) => {
 router.use("/destinations", destinationRoute)
 router.use("/user", userRoute)
 
+router.get("/*", (req, res) => {
+  let foundUser = null
+  if (req.session.loggedInUser) { // Logged in
+    User.findByPk(req.session.loggedInUser.id, {
+      include: [
+        {model: Destination}
+      ]
+    })
+    .then(foundUser => {
+      // res.send(foundUser)
+      res.render("pages/404", {
+        title: "Four oh four!",
+        foundUser,
+        session: req.session
+      })
+    })
+    .catch(err => {
+      res.send(err)
+    })
+  }
+  else { // not Login
+    res.render("pages/404", {
+      title: "Four oh four!",
+      foundUser,
+      session: req.session
+    })
+  }
+})
 
 module.exports = router
