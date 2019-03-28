@@ -1,11 +1,16 @@
 const express = require("express")
 const router = express.Router()
-const bcrypt = require("bcryptjs")
 const { User, UserDestination, Destination } = require("../models")
-const isLoggedIn = require("../middlewares/isLoggedIn")
 const destinationRoute = require("./destinationRoute")
 const userRoute = require("./userRoute")
-const getCompleteDate = require("../helpers/getCompleteDate")
+
+router.use((req, res, next) => {
+  res.locals.getCompleteDate = require("../helpers/getCompleteDate")
+  next()
+}, (req, res, next) => {
+  res.locals.thousandSeparator = require("../helpers/thousandSeparator")
+  next()
+})
 
 router.get("/", (req, res) => {
   let foundUser = null
@@ -20,7 +25,6 @@ router.get("/", (req, res) => {
       res.render("pages", {
         title: "InVacation",
         foundUser,
-        getCompleteDate,
         session: req.session
       })
     })
