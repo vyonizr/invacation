@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <title><%= title %></title>
+  </head>
+  <body class="bg-auth text-light">
+    <% include ../partials/navbar %>
+    <div class="container-fluid col-centered" style="max-width:30rem">
+      <h1 class="text-center"><%= header %></h1>
+      <% if(registerOrLogin === "register") { %>
+        <p class="text-center">Already a member? <a href="/user/login" id="dark-bg">Login</a></p>
+      <% } %>
+      <% if (err) { %>
+        <div class="alert alert-danger text-center" role="alert">
+          <%= err %>
+        </div>
+      <% } %>
+      <div>
+        <% if (registerOrLogin === "register") { %>
+          <form action="/user/register" method="POST">
+        <% }
+        else { %>
+          <form action="/user/login" method="POST">
+        <% } %>
+        <% if (registerOrLogin === "register") { %>
+          <div class="form-group">
+            <label>First name:</label>
+            <input type="text" class="form-control" name="firstName">
+          </div>
+          <div class="form-group">
+            <label>Last name:</label>
+            <input type="text" class="form-control" name="lastName">
+          </div>
+          <div class="form-group">
+            <label>E-mail:</label>
+            <input type="email" class="form-control" name="email">
+          </div>
+        <% } %>
+          <div class="form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" name="username">
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" name="password">
+          </div>
+          <% if (registerOrLogin === "register") { %>
+            <button type="submit" class="btn btn-primary">Register</button>
+          <% }
+          else { %>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="col">
+                  <p>Not a member? <a href="/user/register" id="dark-bg">Register</a></p>
+                </div>
+              </div>
+          <% } %>
+        </form>
+      </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #005780;">
+      <a href="/" class="navbar-brand"><strong style="font-family: 'Kaushan Script', cursive;">InVacation</strong></a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/destinations"><i class="fas fa-map-marked-alt"></i>   Destinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/destinations/search"><i class="fas fa-search"></i>   Search</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <% if (session.loggedInUser) { %>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/user/settings"><%= session.loggedInUser.username.toUpperCase() %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" data-toggle="modal" data-target="#topupModal"><i class="fas fa-wallet"></i> IDR <%= thousandSeparator(foundUser.balance)%> </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/user/logout">Logout</a>
+          </li>
+        <% }
+        else { %>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/user/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/user/login">Login</a>
+          </li>
+        <% } %>
+        </ul>
+      </div>
+    </nav>

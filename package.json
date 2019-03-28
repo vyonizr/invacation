@@ -1,0 +1,24 @@
+{
+  "name": "invacation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "moment": "^2.24.0",
+    "nodejs-currency-converter": "^1.0.2",
+    "pg": "^7.9.0",
+    "sequelize": "^5.2.0"
+  }
+}

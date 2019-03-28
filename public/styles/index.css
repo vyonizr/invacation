@@ -1,0 +1,82 @@
+ body, html {
+  height: 100%;
+}
+
+.bg-index {
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ) no-repeat center center fixed,url(https://images.pexels.com/photos/462024/pexels-photo-462024.jpeg) no-repeat center center fixed;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-auth {
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ) no-repeat center center fixed,url(https://images.pexels.com/photos/861313/pexels-photo-861313.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260) no-repeat center center fixed;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
+a#dark-bg {
+  color: white;
+  text-decoration: none;
+}
+
+a#dark-bg:hover, a#dark-bg:focus {
+  color: white;
+  text-decoration: underline;
+}
+
+#mapid{
+  height: 400px;
+  width: 900px;
+  margin: auto;
+}
+
+#mapid-sm {
+  height: 400px;
+  width: 500px;
+  margin: auto;
+}
+
+#rotating-emoji {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -ms-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-o-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

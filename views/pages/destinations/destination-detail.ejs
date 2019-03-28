@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../partials/head-leaflet %>
+    <title><%= title %></title>
+  </head>
+  <body class="bg-index">
+    <% include ../../partials/navbar %>
+    <div class="container text-light" style="margin-top:2rem">
+      <div class="text-center">
+        <h1 class="font-weight-bold"><%= foundDestination.name %></h1>
+        <p class="font-italic"><%= foundDestination.description %></p>
+      </div>
+      <% if (err) { %>
+        <div class="alert alert-danger text-center" role="alert">
+          <%= err %>
+        </div>
+      <% }
+      else if (success) { %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
+        </div>
+      <% } %>
+      <div class="row" style="margin-top: 2.5rem;">
+        <div class="col">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-interval="3000">
+                      <img src="<%= foundDestination.Pictures[0].url %>" class="d-block w-100" alt="..." style="width:auto; max-height:300px !important;">
+                  </div>
+                  <div class="carousel-item" data-interval="3000">
+                    <img src="<%= foundDestination.Pictures[1].url %>" class="d-block w-100" alt="..." style="width:auto; max-height:300px !important;">
+                  </div>
+                  <div class="carousel-item" data-interval="3000">
+                    <img src="<%= foundDestination.Pictures[2].url %>" class="d-block w-100" alt="..." style="width:auto; max-height:300px !important;">
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <div id="mapid-sm" style="height: 10rem;">
+            </div>
+          </div>
+          <div class="row" style="margin-top: 1.25rem; margin-left: 0.5rem;">
+            <div class="col">
+            <h5 class="font-weight-bold">Travel Date</h5>
+            <p class="text-monospace"> <%= getCompleteDate(foundDestination.date) %>
+            </p>
+            <h5 class="font-weight-bold">Price</h5>
+            <% if (foundDestination.price === 0) { %>
+              <p class="text-monospace">FREE!</p> 
+            <% }
+            else { %>
+              <p class="text-monospace">IDR <%= thousandSeparator(foundDestination.price) %> </p> 
+            <% } %>
+          </div>
+          <% if (booked) { %>
+            <div class="col" style="margin-top: 5rem">
+              <button type="submit" class="btn btn-secondary text-monospace" disabled>Booked</button>
+            </div>
+          <% }
+          else { %>
+            <div class="col" style="margin-top: 5rem">
+              <a href="/destinations/<%= foundDestination.id %>/book"><button type="submit" class="btn btn-info text-monospace">Book Now</button></a>
+            </div>
+          <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 2.5rem;">
+    </div>
+
+    <% include ../../partials/topup-modal %>
+    <script>
+      let getDestination = '<%- foundDestinationStringify %>';
+      getDestination = JSON.parse(getDestination)
+      let mymap = L.map('mapid-sm').setView([getDestination.lat,getDestination.long], 9)
+      marker = L.marker([getDestination.lat, getDestination.long]).addTo(mymap).bindPopup(getDestination.name).openPopup()
+
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox.streets',
+          accessToken: 'pk.eyJ1Ijoidnlvbml6ciIsImEiOiJjanRwbTlhczkwNjVoM3lvM2Y3cDRwMWtxIn0.Hdtt_1JugiGBsGDbx7nOLA'
+      }).addTo(mymap);
+    </script>
+    <%- include('../../partials/bootstrap-scripts') %>
+  </body>
+</html>
